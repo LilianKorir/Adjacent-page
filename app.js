@@ -9,6 +9,7 @@ let express = require('express');
 // Library for nicer logging of HTTP requests
 // See https://github.com/expressjs/morgan
 let logger = require('morgan');
+let fs = require('fs');
 
 let app = express();
 
@@ -27,10 +28,10 @@ function getLayoutHTML(content) {
     <html lang="en">
       <head>
         <meta charset="UTF-8">
-        <title>Hello, world!</title>
+        <title>Adjacent: Spring 2020</title>
 
-        <link rel="stylesheet" href="/css/normalize.css">
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/normalize.css">
+        <link rel="stylesheet" href="/main.css">
       </head>
       <body>
         <section id="content">
@@ -56,7 +57,7 @@ app.get('/', (request, response) => {
     </section>
     <section id="companyInfo">
       <h1>Adjacent Academies: Spring 2020</h1>
-      <img src="adjacentGordonSpeaking.jpg" height="300px" width="400px">
+      <img src="../images/adjacentGordonSpeaking.jpg" height="300px" width="400px">
       ${adjacentQuote}
     </section>
   `;
@@ -67,18 +68,21 @@ app.get('/', (request, response) => {
 });
 
 app.get('/about-us', (request, response) => {
+  let name = request.query.name;
+  fs.appendFileSync('./lib/data.txt', `${name}<br>`);
+  let read = fs.readFileSync('./lib/data.txt');
 
   let content = `
   <head>
     <meta charset="utf-8">
     <title>Adjacent Academies</title>
-    <link rel="stylesheet" href="stylesheets/main.css">
+    <link rel="stylesheet" href="/main.css">
     <link rel="stylesheet"
     href="http://fonts.googleapis.com/css?family=Lato:100,300,400">
   </head>
     <header>
       <h1 class="logo">
-        <a href="adjacent.hmtl">Adjacent Academies Experience</a>
+        <a href="/">Adjacent Academies Experience</a>
       </h1>
       <h3 class="semester">Spring 2020</h3>
     </header>
@@ -97,6 +101,35 @@ app.get('/about-us', (request, response) => {
         <li> English clasess</li>
       </li>
     </ul> </p>
+    <p> Our 2020 Cohort</p>
+    <ul>
+    <li>Chloe deBeus</li>
+      <li>Christos Koumpotis</li>
+      <li>Jaelyn Taylor</li>
+      <li>Jalen Staples</li>
+      <li>Joseph Richards</li>
+      <li>Keith Ng</li>
+      <li>Kendahl Ryan Ross</li>
+      <li>Lily Korir</li>
+      <li> Pat Sullivan</li>
+    </li><li>Rachel McLean</li>
+    <li>Satchel Moore</li>
+    <li>Shaah Cooper</li>
+    <li>Will Smith</li>
+    </ul>
+    <p>We would love to hear from you. Please share your Adjacent experience below.</p>
+    <form method="GET" action="/about-us">
+      <div class="form-section">
+        <label for="name">Your Experience:</label>
+        <input type="text" name="name" id="name" height="200px" width="500px" required>
+      </div>
+      <div class="form-section">
+        <input type="submit" value="Submit!">
+      </div>
+    </form>
+    <p> Here are some of our responses: ${read}</p>
+  </ul> </p>
+  <p><a href="/">Back to the homepage</a></p>
   `;
 
   let pageHtml = getLayoutHTML(content);
@@ -107,39 +140,39 @@ app.get('/about-us', (request, response) => {
 app.get('/projects', (request, response) => {
 
   let content = `
-    <a href="http://davidsoninsiliconvalley2020.com/">Back to homepage</a>
-    <head>
-      <meta charset="utf-8">
-      <title>Projects and Companies</title>
-      <link rel="stylesheet" href="main.css">
-      <a href="images/AA.png"><img src = "images/AA.png" width="150px" height="150px" id="Adjacent"></a>
-      <h1>Projects</h1>
-      <p>During our time at adjacent academies, we have worked on
-        various projects consisting of javascript, html, css, and so on.
-        As a group, we have created: arcade games, fashion apps, dating apps,
-        and much more!  Although they have been very challenging, the end result
-        provides us all with a great feeling that is unmatched by any doubts or
-        struggles we face in the process.
-      </p>
-      <a href="images/jl.jpg"><img src = "images/jl.jpg" width="300px" height="300px" id="JL"></a>
-      <h2>Companies</h2>
-    </head>
-      <body>
-      <p>
-        One of the most exciting parts of our overall experience has definitely
-        been the company tours we have taken.  Through these experiences, we
-        have been able to gain insight into various real-world, fast-paced tech
-        companies.  We also have been able to learn what exactly it takes to work
-        for some of the top tech companies in Silicon Valley.  Some companies we
-        have visted so far are: Entangled, Remind, and HoneyBook.
-      </p>
-     </body>
-      <a href="images/entangled.png"><img src = "images/entangled.png" width="200px" height="100px" id="Entangled"></a>
-      <h3>Learn more about <a href="https://www.entangled.group/"><strong>Entangled</strong></a></h3>
-      <a href="images/remind.png"><img src = "images/remind.png" width="200px" height="100px" id="Remind"></a>
-        <h4>Learn more about <a href="https://www.remind.com/"><strong>Remind</strong></a></h4>
-        <a href="images/honeybook.jpeg"><img src = "images/honeybook.jpeg" width="200px" height="100px" id="Honeybook"></a>
-        <h5>Learn more about <a href="https://www.honeybook.com/"><strong>HoneyBook</strong></a></h5>
+  <p><a href="/">Back to the homepage</a></p>
+  <head>
+    <meta charset="utf-8">
+    <title>Projects and Companies</title>
+    <link rel="stylesheet" href="/main.css">
+    <a href="images/AA.png"><img src = "../images/adjacentLogo.png" width="150px" height="150px" id="adjacentLogo"></a>
+    <h1>Projects</h1>
+    <p>During our time at adjacent academies, we have worked on
+      various projects consisting of javascript, html, css, and so on.
+      As a group, we have created: arcade games, fashion apps, dating apps,
+      and much more!  Although they have been very challenging, the end result
+      provides us all with a great feeling that is unmatched by any doubts or
+      struggles we face in the process.
+    </p>
+    <a href="images/jl.jpg"><img src = "../images/lilyAndJalen.png" width="300px" height="300px" id="JL"></a>
+    <h2>Companies</h2>
+  </head>
+    <body>
+    <p>
+      One of the most exciting parts of our overall experience has definitely
+      been the company tours we have taken.  Through these experiences, we
+      have been able to gain insight into various real-world, fast-paced tech
+      companies.  We also have been able to learn what exactly it takes to work
+      for some of the top tech companies in Silicon Valley.  Some companies we
+      have visted so far are: Entangled, Remind, and HoneyBook.
+    </p>
+    </body>
+    <a href="images/entangled.png"><img src = "../images/entangled.png" width="200px" height="100px" id="Entangled"></a>
+    <h3>Learn more about <a href="https://www.entangled.group/"><strong>Entangled</strong></a></h3>
+    <a href="images/remind.png"><img src = "../images/remind.png" width="200px" height="100px" id="Remind"></a>
+      <h4>Learn more about <a href="https://www.remind.com/"><strong>Remind</strong></a></h4>
+      <a href="images/honeybook.jpeg"><img src = "../images/honeybook.png" width="200px" height="100px" id="Honeybook"></a>
+      <h5>Learn more about <a href="https://www.honeybook.com/"><strong>HoneyBook</strong></a></h5>
   </html>
   `;
 
@@ -148,7 +181,7 @@ app.get('/projects', (request, response) => {
   response.send(pageHtml);
 });
 
-let SERVER_PORT = process.env.PORT || 3005;
+let SERVER_PORT = process.env.PORT || 80;
 
 app.listen(SERVER_PORT, () => {
   console.log(`Listening on port ${SERVER_PORT}...`);

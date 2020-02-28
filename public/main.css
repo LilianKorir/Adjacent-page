@@ -1,7 +1,6 @@
 html {
   background: linear-gradient(to right, #CE1A1D, rgb(67,33,33));
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  color: white
 }
 h1 {
 font-size: 50px;
@@ -22,19 +21,23 @@ p {
 border: solid 4px black;
 margin-right: 700px;
 }
-.adjacentLogo {
+.Adjacent {
   margin-left: 700px;
 }
 
 html {
+  background-color: wheat;
+  background: linear-gradient(to right, #CE1A1D, rgb(67, 33, 33));
   font-family: Arial;
   font-size: 22px;
-  color: white;
+  color: #27B8E4;
   width: auto;
   height: auto;
 }
-
-.form-section {
-  width: 500px;
-  height: 200px;
+#image img{
+  border-radius: 5px;
+  height: 2px;
+  width: auto;
+  margin-bottom: 22px;
+  display: block;
 }
